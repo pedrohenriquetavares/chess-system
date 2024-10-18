@@ -1,4 +1,5 @@
 package chess;
+
 import boardgame.Board;
 import boardgame.Piece;
 import boardgame.Position;
@@ -6,6 +7,7 @@ import chess.pieces.King;
 import chess.pieces.Rook;
 
 public class ChessMatch {
+
     private Board board;
 
     public ChessMatch() {
@@ -42,12 +44,16 @@ public class ChessMatch {
         if (!board.thereIsAPiece(position)) {
             throw new ChessException("There is no piece on source position");
         }
+        if (!board.piece(position).isThereAnyPossibleMove()) {
+            throw new ChessException("There is no possible moves for the chosen piece");
+        }
     }
 
-    private void placeNewPiece(char column, int row, ChessPiece piece){
-        board.placePiece(piece, new ChessPosition(column,row).toPosition());
+    private void placeNewPiece(char column, int row, ChessPiece piece) {
+        board.placePiece(piece, new ChessPosition(column, row).toPosition());
     }
-    private void initialSetup(){
+
+    private void initialSetup() {
         placeNewPiece('c', 1, new Rook(board, Color.WHITE));
         placeNewPiece('c', 2, new Rook(board, Color.WHITE));
         placeNewPiece('d', 2, new Rook(board, Color.WHITE));
